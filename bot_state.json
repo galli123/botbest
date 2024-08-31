@@ -1,0 +1,114 @@
+{
+  "subscribers": [
+    2128204886,
+    1532057121,
+    1144578320,
+    7276802113
+  ],
+  "sentItems": {
+    "1144578320": [
+      {
+        "date": "2024-08-31T00:00:00Z",
+        "coefficient": 5,
+        "warehouseID": 507,
+        "warehouseName": "Коледино",
+        "boxTypeName": "Короба",
+        "boxTypeID": 2
+      },
+      {
+        "date": "2024-08-31T00:00:00Z",
+        "coefficient": 1,
+        "warehouseID": 117986,
+        "warehouseName": "Казань",
+        "boxTypeName": "Короба",
+        "boxTypeID": 2
+      },
+      {
+        "date": "2024-09-01T00:00:00Z",
+        "coefficient": 1,
+        "warehouseID": 117986,
+        "warehouseName": "Казань",
+        "boxTypeName": "Короба",
+        "boxTypeID": 2
+      }
+    ],
+    "1532057121": [
+      {
+        "date": "2024-08-31T00:00:00Z",
+        "coefficient": 5,
+        "warehouseID": 507,
+        "warehouseName": "Коледино",
+        "boxTypeName": "Короба",
+        "boxTypeID": 2
+      },
+      {
+        "date": "2024-08-31T00:00:00Z",
+        "coefficient": 1,
+        "warehouseID": 117986,
+        "warehouseName": "Казань",
+        "boxTypeName": "Короба",
+        "boxTypeID": 2
+      },
+      {
+        "date": "2024-09-01T00:00:00Z",
+        "coefficient": 1,
+        "warehouseID": 117986,
+        "warehouseName": "Казань",
+        "boxTypeName": "Короба",
+        "boxTypeID": 2
+      }
+    ],
+    "2128204886": [
+      {
+        "date": "2024-08-31T00:00:00Z",
+        "coefficient": 5,
+        "warehouseID": 507,
+        "warehouseName": "Коледино",
+        "boxTypeName": "Короба",
+        "boxTypeID": 2
+      },
+      {
+        "date": "2024-08-31T00:00:00Z",
+        "coefficient": 1,
+        "warehouseID": 117986,
+        "warehouseName": "Казань",
+        "boxTypeName": "Короба",
+        "boxTypeID": 2
+      },
+      {
+        "date": "2024-09-01T00:00:00Z",
+        "coefficient": 1,
+        "warehouseID": 117986,
+        "warehouseName": "Казань",
+        "boxTypeName": "Короба",
+        "boxTypeID": 2
+      }
+    ],
+    "7276802113": [
+      {
+        "date": "2024-08-31T00:00:00Z",
+        "coefficient": 5,
+        "warehouseID": 507,
+        "warehouseName": "Коледино",
+        "boxTypeName": "Короба",
+        "boxTypeID": 2
+      },
+      {
+        "date": "2024-08-31T00:00:00Z",
+        "coefficient": 1,
+        "warehouseID": 117986,
+        "warehouseName": "Казань",
+        "boxTypeName": "Короба",
+        "boxTypeID": 2
+      },
+      {
+        "date": "2024-09-01T00:00:00Z",
+        "coefficient": 1,
+        "warehouseID": 117986,
+        "warehouseName": "Казань",
+        "boxTypeName": "Короба",
+        "boxTypeID": 2
+      }
+    ]
+  }
+}
