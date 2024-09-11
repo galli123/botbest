@@ -77,7 +77,7 @@ async function checkCargoes() {
 
             if (newItems.length > 0) {
                 newItems.forEach(item => {
-                    let message = `Дата: ${formatDate(dateString)} \nКоэффициент: ${item.coefficient} \nСклад: ${item.warehouseName} \nТип коробки: ${item.boxTypeName}`;
+                    let message = `Дата: ${formatDate(item.date)} \nКоэффициент: ${item.coefficient} \nСклад: ${item.warehouseName} \nТип коробки: ${item.boxTypeName}`;
                     bot.telegram.sendMessage(chatId, message);
                     console.log(message)
                 });
