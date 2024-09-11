@@ -86,7 +86,6 @@ async function checkCargoes() {
                 sentItems[chatId].push(...newItems);
             }
         });
-        console.log(tryCheck)
     } catch (error) {
         console.error("Ошибка при получении данных:", error);
     }
