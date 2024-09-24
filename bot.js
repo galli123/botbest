@@ -64,28 +64,35 @@ async function checkCargoes() {
             ['Коледино', 'Казань', 'Электросталь', 'Краснодар', 'Тула'].includes(element.warehouseName)
         );
 
-        // Отправка новых данных подписанным пользователям
-        subscribers.forEach(chatId => {
-            if (!sentItems[chatId]) {
-                sentItems[chatId] = [];
+// Отправка новых данных подписанным пользователям
+subscribers.forEach(chatId => {
+    if (!sentItems[chatId]) {
+        sentItems[chatId] = [];
+    }
+    filteredItems.forEach(item => {
+        // Проверяем, был ли уже отправлен элемент с таким же date и warehouseID
+        let existingItem = sentItems[chatId].find(sentItem => sentItem.date === item.date && sentItem.warehouseID === item.warehouseID);
+
+        if (existingItem) {
+            // Если новый коэффициент ниже — отправляем сообщение
+            if (item.coefficient < existingItem.coefficient) {
+                let message = `Дата: ${formatDate(item.date)} \nКоэффициент: ${item.coefficient} \nСклад: ${item.warehouseName} \nТип коробки: ${item.boxTypeName}`;
+                bot.telegram.sendMessage(chatId, message);
+                console.log(message);
             }
+            // В любом случае обновляем данные (сохраняем новые значения)
+            existingItem.coefficient = item.coefficient;
+        } else {
+            // Если это новый элемент, сразу отправляем сообщение
+            let message = `Дата: ${formatDate(item.date)} \nКоэффициент: ${item.coefficient} \nСклад: ${item.warehouseName} \nТип коробки: ${item.boxTypeName}`;
+            bot.telegram.sendMessage(chatId, message);
+            console.log(message);
 
-            // Фильтрация новых элементов, которые еще не отправлялись
-            let newItems = filteredItems.filter(item => 
-                !sentItems[chatId].some(sentItem => sentItem.date === item.date && sentItem.warehouseID === item.warehouseID)
-            );
-
-            if (newItems.length > 0) {
-                newItems.forEach(item => {
-                    let message = `Дата: ${formatDate(item.date)} \nКоэффициент: ${item.coefficient} \nСклад: ${item.warehouseName} \nТип коробки: ${item.boxTypeName}`;
-                    bot.telegram.sendMessage(chatId, message);
-                    console.log(message)
-                });
-
-                // Добавляем новые элементы в список отправленных
-                sentItems[chatId].push(...newItems);
-            }
-        });
+            // Добавляем элемент в список отправленных
+            sentItems[chatId].push(item);
+        }
+    });
+});
     } catch (error) {
         console.error("Ошибка при получении данных:", error);
     }
