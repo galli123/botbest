@@ -59,7 +59,7 @@ async function checkCargoes() {
 
         // Фильтрация и обработка данных
         let filteredItems = items.filter(element => 
-            element.coefficient >= 0 && element.coefficient <= 5 &&
+            element.coefficient >= 0 && element.coefficient <= 2 &&
             element.boxTypeName === 'Короба' &&
             ['Коледино', 'Казань', 'Электросталь', 'Краснодар', 'Тула'].includes(element.warehouseName)
         );
