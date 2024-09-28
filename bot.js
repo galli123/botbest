@@ -63,8 +63,7 @@ async function checkCargoes() {
             element.boxTypeName === 'Короба' &&
             ['Коледино', 'Казань', 'Электросталь', 'Краснодар', 'Тула'].includes(element.warehouseName)
         );
-
-        // Отправка новых данных подписанным пользователям
+                // Отправка новых данных подписанным пользователям
         subscribers.forEach(chatId => {
             if (!sentItems[chatId]) {
                 sentItems[chatId] = [];
@@ -79,13 +78,11 @@ async function checkCargoes() {
                     bot.telegram.sendMessage(chatId, message);
                     console.log(message)
                 });
-
-            // Добавляем элемент в список отправленных
-            sentItems[chatId].push(item);
-        }
-    });
-});
-    } catch (error) {
+                // Добавляем новые элементы в список отправленных
+                sentItems[chatId].push(...newItems);
+                            }
+        });
+            } catch (error) {
         console.error("Ошибка при получении данных:", error);
     }
 }
@@ -101,7 +98,7 @@ function formatDate(dateString) {
 
 function startDailyCheck() {
     const now = new Date();
-    
+
     // Устанавливаем следующее выполнение на 8:30 утра по Москве (UTC+3)
     const nextCheck = new Date();
     nextCheck.setHours(8, 30, 0, 0); // 8:30:00 по местному времени
