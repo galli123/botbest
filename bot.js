@@ -40,6 +40,7 @@ async function checkCargoes() {
         token = 'eyJhbGciOiJFUzI1NiIsImtpZCI6IjIwMjQwODE5djEiLCJ0eXAiOiJKV1QifQ.eyJlbnQiOjEsImV4cCI6MTc0MDc4MDA0NCwiaWQiOiJkODM3NzkyNS05NmExLTQxODYtODgyNS04MjAyNDRkN2UzMmIiLCJpaWQiOjUxODk0ODAyLCJvaWQiOjE5MDEzNSwicyI6MTAyNCwic2lkIjoiM2IyM2RjOWYtYmM4MS00ZjFlLThjYTItNjg2YzMwNjYyYzAzIiwidCI6ZmFsc2UsInVpZCI6NTE4OTQ4MDJ9.gQHWu7JjD-wQRuBrInNbTgnNgIs8FzpBKlgdGSQcsYqCbdzyjPzHXm5qBOJ4DfAeDhUYpxmHIFtU48F1kVWQ9A'
     }
     tryCheck++
+    console.log(tryCheck);
     try {
         const fetch = await import('node-fetch').then(module => module.default);
 
@@ -100,32 +101,32 @@ function formatDate(dateString) {
     return `${day}.${month}`;
 }
 
-function startDailyCheck() {
-    const now = new Date();
+//function startDailyCheck() {
+    //const now = new Date();
 
     // Устанавливаем следующее выполнение на 8:30 утра по Москве (UTC+3)
-    const nextCheck = new Date();
-    nextCheck.setHours(8, 30, 0, 0); // 8:30:00 по местному времени
+    //const nextCheck = new Date();
+    //nextCheck.setHours(8, 30, 0, 0); // 8:30:00 по местному времени
 
     // Если текущее время уже позже 8:30, назначаем выполнение на следующий день
-    if (now > nextCheck) {
-        nextCheck.setDate(nextCheck.getDate() + 1);
-    }
+   // if (now > nextCheck) {
+    //    nextCheck.setDate(nextCheck.getDate() + 1);
+    //}
 
-    const timeToNextCheck = nextCheck - now;
+   // const timeToNextCheck = nextCheck - now;
 
     // Запускаем checkCargoes в 8:30
-    setTimeout(() => {
-        console.log('Проверка отправлений запущена в 8:30 по Москве');
-        checkCargoes();
+    //setTimeout(() => {
+      //  console.log('Проверка отправлений запущена в 8:30 по Москве');
+       // checkCargoes();
 
         // Устанавливаем повторный запуск через 24 часа (86400000 миллисекунд)
-        setInterval(checkCargoes, 24 * 60 * 60 * 1000);
+       // setInterval(checkCargoes, 24 * 60 * 60 * 1000);
 
     }, timeToNextCheck); // Устанавливаем таймер до следующего запуска
 }
 
-startDailyCheck();
+//startDailyCheck();
 
 bot.command('subscribe', (ctx) => {
     const chatId = ctx.chat.id;
