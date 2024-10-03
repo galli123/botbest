@@ -148,8 +148,6 @@ bot.command('unsubscribe', (ctx) => {
 
 loadState();
 
-setInterval(checkCargoes, 7000);
-
 bot.launch();
 
 // Сохраняем состояние при остановке
@@ -162,6 +160,7 @@ process.once('SIGTERM', () => {
     saveState();
     bot.stop('SIGTERM');
 });
+setInterval(checkCargoes, 7000);
 
 // Краснодар, Коледино, Электросталь!, Казань!, Тула!.
 // boxTypeName: 'Короба',
