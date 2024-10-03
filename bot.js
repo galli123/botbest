@@ -123,8 +123,8 @@ function formatDate(dateString) {
         // Устанавливаем повторный запуск через 24 часа (86400000 миллисекунд)
        // setInterval(checkCargoes, 24 * 60 * 60 * 1000);
 
-    }, timeToNextCheck); // Устанавливаем таймер до следующего запуска
-}
+    //}, timeToNextCheck); // Устанавливаем таймер до следующего запуска
+//}
 
 //startDailyCheck();
 
