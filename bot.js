@@ -77,8 +77,8 @@ async function checkCargoes() {
 
             if (newItems.length > 0) {
                 newItems.forEach(item => {
-                     let message = `Дата: ${formatDate(dateString)} \nКоэффициент: ${item.coefficient} \nСклад: ${item.warehouseName} \nТип коробки: ${item.boxTypeName}`;
-                                        bot.telegram.sendMessage(chatId, message);
+                    let message = `Дата: ${formatDate(item.date)} \nКоэффициент: ${item.coefficient} \nСклад: ${item.warehouseName} \nТип коробки: ${item.boxTypeName}`;
+                    bot.telegram.sendMessage(chatId, message);
                     console.log(message)
                 });
 
@@ -86,8 +86,7 @@ async function checkCargoes() {
                 sentItems[chatId].push(...newItems);
             }
         });
-        console.log(tryCheck)
-    } catch (error) {
+            } catch (error) {
         console.error("Ошибка при получении данных:", error);
     }
 }
@@ -100,26 +99,34 @@ function formatDate(dateString) {
     // Формируем строку в формате 30.08
     return `${day}.${month}`;
 }
+
 function startDailyCheck() {
     const now = new Date();
-    
+
     // Устанавливаем следующее выполнение на 8:30 утра по Москве (UTC+3)
     const nextCheck = new Date();
     nextCheck.setHours(8, 30, 0, 0); // 8:30:00 по местному времени
+
     // Если текущее время уже позже 8:30, назначаем выполнение на следующий день
     if (now > nextCheck) {
         nextCheck.setDate(nextCheck.getDate() + 1);
     }
+
     const timeToNextCheck = nextCheck - now;
+
     // Запускаем checkCargoes в 8:30
     setTimeout(() => {
         console.log('Проверка отправлений запущена в 8:30 по Москве');
         checkCargoes();
+
         // Устанавливаем повторный запуск через 24 часа (86400000 миллисекунд)
         setInterval(checkCargoes, 24 * 60 * 60 * 1000);
+
     }, timeToNextCheck); // Устанавливаем таймер до следующего запуска
 }
+
 startDailyCheck();
+
 bot.command('subscribe', (ctx) => {
     const chatId = ctx.chat.id;
     if (!subscribers.includes(chatId)) {
@@ -157,3 +164,4 @@ process.once('SIGTERM', () => {
 
 // Краснодар, Коледино, Электросталь!, Казань!, Тула!.
 // boxTypeName: 'Короба',
+// От 0 до 5
