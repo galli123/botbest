@@ -147,7 +147,7 @@ bot.command('unsubscribe', (ctx) => {
 
 loadState();
 
-setInterval(checkCargoes, 5500);
+setInterval(checkCargoes, 7000);
 
 bot.launch();
 
