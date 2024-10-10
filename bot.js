@@ -160,7 +160,7 @@ process.once('SIGTERM', () => {
     saveState();
     bot.stop('SIGTERM');
 });
-setInterval(checkCargoes, 3200);
+setInterval(checkCargoes, 6500);
 
 // Краснодар, Коледино, Электросталь!, Казань!, Тула!.
 // boxTypeName: 'Короба',
