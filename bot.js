@@ -5,6 +5,7 @@ const bot = new Telegraf(BOT_TOKEN);
 let tryCheck = 0
 let subscribers = [];
 let sentItems = {}; // Объект для хранения отправленных данных
+let previousCoefficients = {}; // Объект для хранения предыдущих коэффициентов
 
 // Загрузка данных из файла при запуске бота
 const loadState = () => {
@@ -13,6 +14,7 @@ const loadState = () => {
         const state = JSON.parse(data);
         subscribers = state.subscribers || [];
         sentItems = state.sentItems || {};
+        previousCoefficients = state.previousCoefficients || {}; // Загружаем предыдущие коэффициенты
         console.log('Данные успешно загружены.');
         sentItems = {};
     } catch (err) {
@@ -24,7 +26,8 @@ const loadState = () => {
 const saveState = () => {
     const state = {
         subscribers,
-        sentItems
+        sentItems,
+        previousCoefficients
     };
     fs.writeFileSync('bot_state.json', JSON.stringify(state, null, 2));
     console.log('Данные успешно сохранены.');
@@ -75,19 +78,26 @@ async function checkCargoes() {
             let newItems = filteredItems.filter(item => 
                 !sentItems[chatId].some(sentItem => sentItem.date === item.date && sentItem.warehouseID === item.warehouseID)
             );
-
-            if (newItems.length > 0) {
-                newItems.forEach(item => {
-                    let message = `Дата: ${formatDate(item.date)} \nКоэффициент: ${item.coefficient} \nСклад: ${item.warehouseName} \nТип коробки: ${item.boxTypeName}`;
-                    bot.telegram.sendMessage(chatId, message);
-                    console.log(message)
-                });
-
-                // Добавляем новые элементы в список отправленных
-                sentItems[chatId].push(...newItems);
-            }
+            newItems.forEach(item => {
+                // Получаем предыдущий коэффициент для этого элемента
+                const previousCoefficient = previousCoefficients[item.warehouseID] || Infinity;
+        
+                // Проверяем, изменился ли коэффициент
+                if (item.coefficient < previousCoefficient) {
+                    // Если коэффициент меньше или равен 3, отправляем сообщение
+                    if (item.coefficient <= 3) {
+                        let message = `Дата: ${formatDate(item.date)} \nКоэффициент: ${item.coefficient} \nСклад: ${item.warehouseName} \nТип коробки: ${item.boxTypeName}`;
+                        bot.telegram.sendMessage(chatId, message);
+                        console.log(message);
+                    }
+                }
+        
+                // Обновляем предыдущий коэффициент для данного элемента
+                previousCoefficients[item.warehouseID] = item.coefficient;
+            });
+            sentItems[chatId].push(...newItems);
         });
-            } catch (error) {
+    } catch (error) {
         console.error("Ошибка при получении данных:", error);
     }
 }
